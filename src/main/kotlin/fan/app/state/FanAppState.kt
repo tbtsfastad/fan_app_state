@@ -10,8 +10,8 @@ class FanAppState(private val app: Application) {
     val activities: List<Activity> get() = _activities.toList()
     val isFg: Boolean get() = started > 0
 
-    var onFg: (() -> Unit)? = null
-    var onBg: (() -> Unit)? = null
+    var onFg: ((Activity) -> Unit)? = null
+    var onBg: ((Activity) -> Unit)? = null
 
     init {
         reg()
@@ -22,7 +22,7 @@ class FanAppState(private val app: Application) {
             override fun onActivityStarted(activity: Activity) {
                 started++
                 if (started == 1) {
-                    onFg?.invoke()
+                    onFg?.invoke(activity)
                 }
             }
 
@@ -30,7 +30,7 @@ class FanAppState(private val app: Application) {
                 if (started == 0) return
                 started--
                 if (started == 0) {
-                    onBg?.invoke()
+                    onBg?.invoke(activity)
                 }
             }
 
