@@ -7,8 +7,8 @@ import android.os.Bundle
 class FanAppState(private val app: Application) {
     private var started = 0
     private val _activities = mutableListOf<Activity>()
-    val activities: List<Activity>
-        get() = _activities.toList()
+    val activities: List<Activity> get() = _activities.toList()
+    val isFg: Boolean get() = started > 0
 
     var onFg: (() -> Unit)? = null
     var onBg: (() -> Unit)? = null
